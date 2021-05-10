@@ -10,8 +10,8 @@ function generatorCnpj(isMask) {
 function createCnpjNumber() {
     const lstNumbers = createListNumber()
 
-    let digit1 = calculateDigitCpf(lstNumbers)
-    let digit2 = calculateDigitCpf(lstNumbers, digit1)
+    let digit1 = calculateDigitCnpj(lstNumbers)
+    let digit2 = calculateDigitCnpj(lstNumbers, digit1)
 
     return `${lstNumbers.join('')}${digit1}${digit2}`
 }
@@ -34,7 +34,7 @@ function randomNumber() {
     return Math.floor(Math.random() * 9)
 }
 
-function calculateRestCpf(sumDigit) {
+function calculateRestCnpj(sumDigit) {
     return 11 - sumDigit % 11;
 }
 
@@ -51,8 +51,8 @@ function calculateSumDigit(lstNumbers, digit) {
     return sumDigit
 }
 
-function calculateDigitCpf(lstNumbers, digit1) {
-    let digit = calculateRestCpf(calculateSumDigit(lstNumbers, digit1))
+function calculateDigitCnpj(lstNumbers, digit1) {
+    let digit = calculateRestCnpj(calculateSumDigit(lstNumbers, digit1))
 
     if (digit >= 10)
         return 0

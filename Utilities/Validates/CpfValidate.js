@@ -72,7 +72,7 @@ function calculateRestCpf(sumDigit) {
 }
 
 function validateRestValue(rest) {
-    if (rest == 10 || rest == 11)
+    if (rest >= 10)
         return 0
 
     return rest
