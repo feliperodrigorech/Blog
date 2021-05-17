@@ -10,10 +10,8 @@ function generatorCnpj(isMask) {
 function createCnpjNumber() {
     const lstNumbers = createListNumber()
 
-    let digit1 = calculateDigitCnpj(lstNumbers)
-    let digit2 = calculateDigitCnpj(lstNumbers, digit1)
-
-    return `${lstNumbers.join('')}${digit1}${digit2}`
+    lstNumbers.push(calculateDigitCnpj(lstNumbers))
+    return `${lstNumbers.join('')}${calculateDigitCnpj(lstNumbers)}`
 }
 
 function createListNumber() {
@@ -35,24 +33,24 @@ function randomNumber() {
 }
 
 function calculateRestCnpj(sumDigit) {
-    return 11 - sumDigit % 11;
+    return sumDigit % 11;
 }
 
-function calculateSumDigit(lstNumbers, digit) {
-    var sumDigit = digit === undefined ? 0 : (digit * 2)
-    var salt = digit === undefined ? 2 : 3
+function calculateSumDigit(lstNumbers) {
+    let sumDigit = 0
+    let salt = 9
 
-    for (let i = 12; i > 0; i--) {
-        sumDigit += lstNumbers.indexOf(i) * salt++
-        if (salt >= 9)
-            salt = 2
+    for (let i = lstNumbers.length - 1; i >= 0; i--) {
+        sumDigit += lstNumbers[i] * salt--
+        if (salt < 2)
+            salt = 9
     }
 
     return sumDigit
 }
 
-function calculateDigitCnpj(lstNumbers, digit1) {
-    let digit = calculateRestCnpj(calculateSumDigit(lstNumbers, digit1))
+function calculateDigitCnpj(lstNumbers) {
+    let digit = calculateRestCnpj(calculateSumDigit(lstNumbers))
 
     if (digit >= 10)
         return 0
